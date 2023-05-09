@@ -354,10 +354,11 @@ function CreateCall({ pc, firestore, setNewServer, setLoading }) {
   const handleCall = async (e) => {
     e.preventDefault()
     console.log("connection state now2", pc);
-    const localStream =  navigator.mediaDevices.getUserMedia({
+    const localStream = await navigator.mediaDevices.getUserMedia({
       video: true,
       audio: true,
     });
+    console.log("local-stream",localStream)
     setStream(localStream);
     localStream.getTracks().forEach((track) => {
       pc.addTrack(track, localStream);
