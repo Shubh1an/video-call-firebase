@@ -372,6 +372,7 @@ function CreateCall({ pc, firestore, setNewServer, setLoading }) {
         remoteStream.addTrack(track);
       });
     };
+    // GG
 
     remoteRef.current.srcObject = remoteStream;
     localRef.current.srcObject = localStream;
