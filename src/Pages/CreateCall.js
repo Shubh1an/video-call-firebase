@@ -351,7 +351,8 @@ function CreateCall({ pc, firestore, setNewServer, setLoading }) {
     }
   };
 
-  const handleCall = async () => {
+  const handleCall = async (e) => {
+    e.preventDefault()
     console.log("connection state now2", pc);
     const localStream = await navigator.mediaDevices.getUserMedia({
       video: true,
@@ -370,9 +371,9 @@ function CreateCall({ pc, firestore, setNewServer, setLoading }) {
       });
     };
 
-    // console.log("sdfsdfsd", roomId);
     remoteRef.current.srcObject = remoteStream;
     localRef.current.srcObject = localStream;
+    console.log("sdfsdfsd", remoteRef.current.srcObject);
     setRemoteStream(remoteStream);
     const callDoc = CallsDataRef.doc(roomId);
 
@@ -569,9 +570,8 @@ function CreateCall({ pc, firestore, setNewServer, setLoading }) {
               </div>
 
               <button
-                onClick={() => handleCall()}
+                onClick={(e) => handleCall(e)}
                 className="button-10"
-                role="button"
                 style={{ marginTop: "10px" }}
               >
                 Answer
@@ -579,7 +579,6 @@ function CreateCall({ pc, firestore, setNewServer, setLoading }) {
               <button
                 onClick={() => handleReject()}
                 className="button-10"
-                role="button"
                 style={{ marginTop: "10px" }}
               >
                 Reject
