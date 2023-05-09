@@ -77,25 +77,25 @@ function CreateCall({ pc, firestore, setNewServer, setLoading }) {
       });
     return () => callDoc();
   });
-  useEffect(() => {
-    const windowCal = () => {
-      if (window.innerWidth > 760) {
-        setShowSidebar(true);
-      } else if (window.innerWidth <= 760) {
-        setShowSidebar(false);
-      }
-    };
-    window.onresize = windowCal;
-    if (remoteStream) {
-      console.log(
-        "remote refffffff",
-        remoteRef,
-        remoteRef.current.srcObject.getTracks(),
-        pc.getSenders()[1]?.track,
-        remoteStream.getAudioTracks()[0]
-      );
-    }
-  }, [window.innerWidth]);
+  // useEffect(() => {
+  //   const windowCal = () => {
+  //     if (window.innerWidth > 760) {
+  //       setShowSidebar(true);
+  //     } else if (window.innerWidth <= 760) {
+  //       setShowSidebar(false);
+  //     }
+  //   };
+  //   window.onresize = windowCal;
+  //   if (remoteStream) {
+  //     console.log(
+  //       "remote refffffff",
+  //       remoteRef,
+  //       remoteRef.current.srcObject.getTracks(),
+  //       pc.getSenders()[1]?.track,
+  //       remoteStream.getAudioTracks()[0]
+  //     );
+  //   }
+  // }, [window.innerWidth]);
 
   const CreateRequestList = () => {
     let Users1Data = [];
@@ -354,7 +354,7 @@ function CreateCall({ pc, firestore, setNewServer, setLoading }) {
   const handleCall = async (e) => {
     e.preventDefault()
     console.log("connection state now2", pc);
-    const localStream = await navigator.mediaDevices.getUserMedia({
+    const localStream =  navigator.mediaDevices.getUserMedia({
       video: true,
       audio: true,
     });
@@ -373,7 +373,7 @@ function CreateCall({ pc, firestore, setNewServer, setLoading }) {
 
     remoteRef.current.srcObject = remoteStream;
     localRef.current.srcObject = localStream;
-    console.log("sdfsdfsd", remoteRef.current.srcObject);
+    console.log("s", remoteRef.current.srcObject);
     setRemoteStream(remoteStream);
     const callDoc = CallsDataRef.doc(roomId);
 
