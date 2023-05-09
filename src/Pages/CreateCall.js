@@ -364,10 +364,10 @@ function CreateCall({ pc, firestore, setNewServer, setLoading }) {
       pc.addTrack(track, localStream);
     });
 
-    const remoteStream = new MediaStream();
+    const remoteStream =  new MediaStream();
 
-    pc.ontrack = (event) => {
-      event.streams[0].getTracks().forEach((track) => {
+    pc.ontrack = async(event) => {
+    await event.streams[0].getTracks().forEach((track) => {
         console.log("s", track);
         remoteStream.addTrack(track);
       });
