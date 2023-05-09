@@ -1,0 +1,46 @@
+.user-Container {
+  height: 100%;
+  width: 300px;
+  flex: 0.7;
+  background-color: gainsboro;
+  text-align: center;
+  margin: 1.1px 0;
+  border-radius: 5px;
+}
+.user-header {
+  font-weight: 400;
+  color: cornflowerblue;
+  padding: 15px;
+  margin: 0;
+  font-weight: 700;
+  border-bottom: 0.5px solid #ebebeb;
+}
+.user-list {
+  color: #002;
+  background-color: #fff;
+  padding: 0 3px;
+  margin: 5px;
+  display: flex;
+  justify-content: space-between;
+  border-radius: 5px;
+}
+.callIcon {
+  width: 25px;
+  height: 25px;
+  margin-left: 10px;
+  margin-right: 10px;
+}
+@media only screen and (max-width: 760px) {
+  .user-Container-active {
+    position: relative;
+    top: 5px;
+    right: 10px;
+    width: 300px;
+    background-color: gainsboro;
+    text-align: center;
+    z-index: 10;
+  }
+  .video-container {
+    flex-direction: column;
+  }
+}
