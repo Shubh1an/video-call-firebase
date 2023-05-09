@@ -368,6 +368,7 @@ function CreateCall({ pc, firestore, setNewServer, setLoading }) {
 
     pc.ontrack = (event) => {
       event.streams[0].getTracks().forEach((track) => {
+        console.log("s", track);
         remoteStream.addTrack(track);
       });
     };
