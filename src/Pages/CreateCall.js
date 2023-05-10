@@ -274,17 +274,18 @@ function CreateCall({ pc, firestore, setNewServer, setLoading }) {
       });
       setOtherUserId(userId);
       if (pc.connectionState === "closed") {
-        setTimeout(() => {
-          setNewServer();
-        }, 2000);
+        setNewServer();
+        // setTimeout(() => {
+         
+        // }, 1000);
       }
       localStream?.getTracks().forEach((track) => {
         pc.addTrack(track, localStream);
       });
       const remoteStream = new MediaStream();
 
-      pc.ontrack = (event) => {
-        event.streams[0].getTracks().forEach((track) => {
+      pc.ontrack = async(event) => {
+       await event.streams[0].getTracks().forEach((track) => {
           remoteStream.addTrack(track);
         });
       };
@@ -303,12 +304,12 @@ function CreateCall({ pc, firestore, setNewServer, setLoading }) {
       setRoomId(callDoc.id);
 
       pc.onicecandidate = (event) => {
-        event.candidate && offerCandidates.add(event.candidate.toJSON());
+        event?.candidate && offerCandidates?.add(event.candidate.toJSON());
       };
 
       const offerDescription = await pc.createOffer();
 
-      await pc.setLocalDescription(offerDescription);
+      await pc?.setLocalDescription(offerDescription);
 
       const offer = {
         sdp: offerDescription.sdp,
@@ -323,8 +324,8 @@ function CreateCall({ pc, firestore, setNewServer, setLoading }) {
 
       callDoc.onSnapshot((snapshot) => {
         const data = snapshot.data();
-        if (!pc.currentRemoteDescription && data?.answer) {
-          const answerDescription = new RTCSessionDescription(data.answer);
+        if (!pc?.currentRemoteDescription && data?.answer) {
+          const answerDescription = new RTCSessionDescription(data?.answer);
           pc.setRemoteDescription(answerDescription);
         }
       });
@@ -376,14 +377,14 @@ function CreateCall({ pc, firestore, setNewServer, setLoading }) {
 
     remoteRef.current.srcObject = remoteStream;
     localRef.current.srcObject = localStream;
-    console.log("s", remoteRef.current.srcObject);
+    console.log("s", remoteStream);
     setRemoteStream(remoteStream);
     const callDoc = CallsDataRef.doc(roomId);
 
     const answerCandidates = callDoc.collection("answerCandidates");
     const offerCandidates = callDoc.collection("offerCandidates");
-    pc.onicecandidate = (event) => {
-      event.candidate && answerCandidates.add(event.candidate.toJSON());
+    pc.onicecandidate = async(event) => {
+     await event.candidate && answerCandidates.add(event.candidate.toJSON());
     };
     const callData = (await callDoc.get()).data();
 
